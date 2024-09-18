@@ -1,10 +1,10 @@
-<div class="container mt-3">
-
     <div class="row">
         <div class="col-12">
             <?php Flasher::flash(); ?>
         </div>
     </div>
+
+    <script src="..\public\js\flash.js"></script>
 
     <!-- <div class="row mb-3">
         <div class="col-lg-6">
@@ -37,14 +37,14 @@
     </div> -->
 
     <!-- Card -->
-    <div class="row mb-3">
+    <div class="row">
 
-        <div class="col-md-4 col-xl-3">
+        <div class="col-md-4 col-xl-3 mb-3">
             <div class="card">
                 <div class="card-block d-flex justify-content-between">
                     <div>
                         <h6>Mahasiwa</h6>
-                        <h2><span>0</span></h2>
+                        <h2><span><?php echo $data['jumlahUser'];  ?></span></h2>
                         <p>Total mahasiswa</p>
                     </div>
                     <div>
@@ -53,12 +53,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-xl-3">
+        <div class="col-md-4 col-xl-3 mb-3">
             <div class="card">
                 <div class="card-block d-flex justify-content-between">
                     <div>
                         <h6>Koordinator Lab</h6>
-                        <h2><span>0</span></h2>
+                        <h2><span><span><?php echo $data['jumlahKorlab'];  ?></span></h2>
                         <p>Total koordinator lab</p>
                     </div>
                     <div>
@@ -67,12 +67,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-xl-3">
+        <div class="col-md-4 col-xl-3 mb-3">
             <div class="card">
                 <div class="card-block d-flex justify-content-between">
                     <div>
                         <h6>Admin</h6>
-                        <h2><span>0</span></h2>
+                        <h2><span><?php echo $data['jumlahAdmin'];  ?></span></h2>
                         <p>Total admin</p>
                     </div>
                     <div>
@@ -81,12 +81,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-xl-3">
+        <div class="col-md-4 col-xl-3 mb-3">
             <div class="card">
                 <div class="card-block d-flex justify-content-between">
                     <div>
                         <h6>Kepala Lab</h6>
-                        <h2><span>0</span></h2>
+                        <h2><span><?php echo $data['jumlahKelab'];  ?></span></h2>
                         <p>Total kepala lab</p>
                     </div>
                     <div>
@@ -111,8 +111,8 @@
 
         <div class="horizontal-line"></div>
 
-        <div class="card-body mt-3">
-            <table id="example" class="table table-bordered table-striped" style="width:100%">
+        <div class="card-body mt-3 table-responsive">
+            <table id="example" class="table align-middle" style="width:100%">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -127,20 +127,36 @@
                 <tbody>
                     <?php
                     $no = 0;
-                    foreach ($data['mhs'] as $mahasiswa) :
+                    foreach ($data['user'] as $user) :
                         $no++;
                     ?>
                         <tr>
                             <td><?= $no; ?></td>
-                            <td><?= $mahasiswa['nama']; ?></td>
-                            <td><?= $mahasiswa['email']; ?></td>
-                            <td>-</td>
-                            <td><?= $mahasiswa['jurusan']; ?></td>
-                            <td>-</td>
-                            <td class="icon-container" style="text-align: center;">
-                                <a href="<?= BASEURL; ?>/mahasiswa/ubah/<?= $mhs['id']; ?>" class="tampilModalUbah" data-bs-toggle="modal" data-bs-target="#formModal" data-id="<?= $mhs['id']; ?>"><i class=" fa-solid fa-pen-to-square"></i></a>
-                                <a href="<?= BASEURL; ?>/mahasiswa/hapus/<?= $mhs['id']; ?>" onclick="return confirm('yakin?');"> <i class="fa-solid fa-trash-can"></i></a>
-                                <a href="<?= BASEURL; ?>/mahasiswa/detail/<?= $mhs['id']; ?>"><i class=" fa-solid fa-ellipsis-vertical"></i></a>
+                            <td><?= $user['nama_lengkap']; ?></td>
+                            <td><?= $user['email']; ?></td>
+                            <td><?= $user['no_telp']; ?></td>
+                            <td><?= $user['nama_jurusan']; ?></td>
+                            <td><?= $user['nama_role']; ?></td>
+                            <td class="icon-container text-center">
+                                <!-- Example single danger button -->
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span class="material-symbols-outlined">
+                                            settings
+                                        </span>
+                                    </button>
+                                    <ul class="dropdown-menu" style="min-width: auto !important;">
+                                        <li><a class="dropdown-item" href="<?= BASEURL; ?>/mahasiswa/detail/<?= $user['id_user']; ?>"><i class="fa-regular fa-eye"></i>View</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" href="<?= BASEURL; ?>/mahasiswa/ubah/<?= $user['id_user']; ?>" class="tampilModalUbah" data-bs-toggle="modal" data-bs-target="#formModal" data-id="<?= $user['id_user']; ?>"><i class=" fa-solid fa-pen-to-square"></i>Edit</a></li>
+                                        <li><a class="dropdown-item" href="<?= BASEURL; ?>/mahasiswa/hapus/<?= $user['id_user']; ?>" onclick="return confirm('yakin?');"><i class="fa-solid fa-trash-can"></i>Delete</a></li>
+                                    </ul>
+                                </div>
+                                <!-- <a href="<?= BASEURL; ?>/mahasiswa/ubah/<?= $user['id_user']; ?>" class="tampilModalUbah" data-bs-toggle="modal" data-bs-target="#formModal" data-id="<?= $user['id_user']; ?>"><i class=" fa-solid fa-pen-to-square"></i></a>
+                                <a href="<?= BASEURL; ?>/mahasiswa/hapus/<?= $user['id_user']; ?>" onclick="return confirm('yakin?');"> <i class="fa-solid fa-trash-can" style="color: #ff0000;"></i></a>
+                                <a href="<?= BASEURL; ?>/mahasiswa/detail/<?= $user['id_user']; ?>"><i class=" fa-solid fa-ellipsis-vertical" style="color: #000000;"></i></a> -->
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -150,49 +166,6 @@
     </div>
     <!-- End Data user -->
 
-    <!-- Modal -->
-    <!-- <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="judulModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="formModalLabel">Tambah Data Mahasiwa</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="<?= BASEURL; ?>/mahasiswa/tambah" method="post">
-                        <input type="hidden" name="id" id="id">
-                        <div class="mb-3">
-                            <label for="nama">Nama</label>
-                            <input type="text" class="form-control" id="nama" name="nama">
-                        </div>
-                        <div class="mb-3">
-                            <label for="nim">nim</label>
-                            <input type="number" class="form-control" id="nim" name="nim">
-                        </div>
-                        <div class="mb-3">
-                            <label for="email">email</label>
-                            <input type="email" class="form-control" id="email" name="email">
-                        </div>
-                        <div class="mb-3">
-                            <label for="jurusan">Jurusan</label>
-                            <select id="jurusan" class="form-control" name="jurusan">
-                                <option value="Teknik Informatika">Teknik Informatika</option>
-                                <option value="Teknik Kimia">Teknik Kimia</option>
-                                <option value="Sistem Informasi">Sistem Informasi</option>
-                                <option value="Teknik Mesin">Teknik Mesin</option>
-                            </select>
-                        </div>
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary ">Tambah Data</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> -->
 
     <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="judulModal" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -203,55 +176,74 @@
                 </div>
                 <div class="modal-body">
                     <form action="<?= BASEURL; ?>/mahasiswa/tambah" method="post">
-                        <input type="hidden" name="id" id="id">
+                        <input type="hidden" name="id_user" id="id_user">
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="nama">Nama</label>
-                                <input type="text" class="form-control" id="nama" name="nama">
+                                <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
+                                <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="email">Email</label>
+                                <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="email" name="email">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="nim">NIM</label>
+                                <label for="nim" class="form-label">Nim</label>
                                 <input type="number" class="form-control" id="nim" name="nim">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="nama">Nama</label>
-                                <input type="text" class="form-control" id="nama" name="nama">
+                                <label for="no_telp" class="form-label">No.Telepon</label>
+                                <input type="tel" class="form-control" id="no_telp" name="no_telp">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="jurusan">Jurusan</label>
-                                <select id="jurusan" class="form-control" name="jurusan">
-                                    <option value="Teknik Informatika">Teknik Informatika</option>
-                                    <option value="Teknik Kimia">Teknik Kimia</option>
-                                    <option value="Sistem Informasi">Sistem Informasi</option>
-                                    <option value="Teknik Mesin">Teknik Mesin</option>
+                                <label for="nama_jurusan" class="form-label">Jurusan</label>
+                                <select id="nama_jurusan" class="form-control" name="id_jurusan">
+                                    <option value="#">-- Pilih Jurusan --</option>
+                                    <?php foreach ($data['dataJurusan'] as $jurusan) : ?>
+                                        <option value="<?= $jurusan['id_jurusan']; ?>"><?= $jurusan['nama_jurusan']; ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="role">Role</label>
-                                <input type="text" class="form-control" id="role" name="role">
+                                <label for="nama_role" class="form-label">Role</label>
+                                <select id="nama_role" class="form-control" name="id_role">
+                                    <option value="#">-- Pilih Role --</option>
+                                    <?php foreach ($data['dataRole'] as $role) : ?>
+                                        <option value="<?= $role['id_role']; ?>"><?= $role['nama_role']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="password">Kata Sandi</label>
-                                <input type="password" class="form-control" id="password" name="password">
+                                <label for="password" class="form-label">Kata Sandi</label>
+                                <div class="position-relative">
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                    <div class="position-absolute top-50 end-0 translate-middle">
+                                        <span class="p-0 input-group-text" style="cursor:pointer; background-color: transparent; border: none;">
+                                            <i class="fas fa-eye" id="togglePassword1" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="password">Konfirmasi Kata Sandi</label>
-                                <input type="password" class="form-control" id="password" name="password">
+                                <label for="confirm_password" class="form-label">Konfirmasi Kata Sandi</label>
+                                <div class="position-relative">
+                                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                                    <div class="position-absolute top-50 end-0 translate-middle">
+                                        <span class="p-0 input-group-text" style="cursor:pointer; background-color: transparent; border: none;">
+                                            <i class="fas fa-eye" id="togglePassword2" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Add additional fields and columns as needed -->
 
@@ -264,108 +256,3 @@
             </div>
         </div>
     </div>
-
-    <!-- Card peminjaman-->
-    <div class="row mb-3">
-
-        <div class="col-md-4 col-xl-3">
-            <div class="card">
-                <div class="card-block d-flex justify-content-between">
-                    <div>
-                        <h6>Peminjaman</h6>
-                        <h2><span>0</span></h2>
-                        <p>Total Peminjaman</p>
-                    </div>
-                    <div>
-                        <img src="..\public\img\pinjam.svg" alt="Mahasiswa">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-xl-3">
-            <div class="card">
-                <div class="card-block d-flex justify-content-between">
-                    <div>
-                        <h6>Disetujui</h6>
-                        <h2><span>0</span></h2>
-                        <p>Peminjaman Disetujui</p>
-                    </div>
-                    <div>
-                        <img src="..\public\img\disetujui.svg" alt="Koordinator Lab">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-xl-3">
-            <div class="card">
-                <div class="card-block d-flex justify-content-between">
-                    <div>
-                        <h6>Ditolak</h6>
-                        <h2><span>0</span></h2>
-                        <p>Peminjaman Ditolak</p>
-                    </div>
-                    <div>
-                        <img src="..\public\img\ditolak.svg" alt="admin">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-xl-3">
-            <div class="card">
-                <div class="card-block d-flex justify-content-between">
-                    <div>
-                        <h6>Dibatalkan</h6>
-                        <h2><span>0</span></h2>
-                        <p>Peminjaman Dibatalkan</p>
-                    </div>
-                    <div>
-                        <img src="..\public\img\dibatalkan.svg" alt="Kepala Lab">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Card -->
-
-    <div class="container-user rounded mb-3">
-        <table id="example" class="table table-bordered table-striped" style="width:100%">
-            <thead>
-                <tr style="vertical-align: middle;">
-                    <th>No</th>
-                    <th>Peminjam</th>
-                    <th>Ruangan</th>
-                    <th>Tanggal <br>Peminjaman</th>
-                    <th>Waktu <br>Mulai</th>
-                    <th>Waktu <br>Selesai</th>
-                    <th>Keperluan</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $no = 0;
-                foreach ($data['mhs'] as $mahasiswa) :
-                    $no++;
-                ?>
-                    <tr>
-                        <td><?= $no; ?></td>
-                        <td>Adam Adnan</td>
-                        <td>Lab Multimedia</td>
-                        <td>2024-01-20</td>
-                        <td>15:00</td>
-                        <td>17:00</td>
-                        <td>Lomba</td>
-                        <td>Pending</td>
-                        <td>
-                            <button type="submit" class="btn btn-primary">Setuju</button>
-
-                            <button type="reset" class="btn btn-danger">Tolak</button>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-
-</div>

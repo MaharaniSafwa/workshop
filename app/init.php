@@ -7,5 +7,8 @@ require_once 'core/Flasher.php';
 
 require_once 'config/config.php';
 
+require_once 'helpers/ImageUpload.php';
+
+
 
 

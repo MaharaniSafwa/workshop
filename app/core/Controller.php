@@ -9,12 +9,8 @@ class Controller
 {
     public function view($view, $data = [])
     {
+        require_once '../app/views/' . $view . '.php';
 
-        if (!isset($_SESSION['nama'])) {
-            require_once '../app/views/' . $view . '.php';
-        } else {
-            require_once '../app/views/login/index.php';
-        }
     }
 
     public function model($model)
